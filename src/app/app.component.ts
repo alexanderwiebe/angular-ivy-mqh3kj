@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 
 type ThingWithExtraValues = {
   moo: string;
@@ -8,21 +8,21 @@ type ThingWithExtraValues = {
 };
 
 const moo: ThingWithExtraValues = {
-  moo: 'moo', // Works
+  moo: "moo", // Works
 };
 
-moo.cow = 'cow'; // This is fine
+moo.cow = "cow"; // This is fine
 
-moo.somethingElse = 'woo'; // This is also fine
+moo.somethingElse = "woo"; // This is also fine
 
 // const moo2: ThingWithExtraValues = {
 //   cow: 'cow', // Doesn't work since `moo` is required
 // };
 
 @Component({
-  selector: 'my-app',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: "my-app",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
   form = new FormGroup<{
@@ -52,7 +52,7 @@ export class AppComponent {
     // });
 
     this.form.patchValue({
-      firstname: 'aj', // works~ :D
+      firstname: "aj", // works~ :D
     });
 
     type PatchValue = Parameters<typeof this.form.patchValue>[0];
@@ -66,15 +66,15 @@ export class AppComponent {
     // Without this line, the `patchValue` will not have a type error
     // if your generic (above) says `id` might be defined
     // this.form.addControl('id', new FormControl());
-    const asdf = {
-      id: '123abc',
-      lastname: 'wiebe'
-    } satisfies PatchValue;
+    // const asdf = {
+    //   id: '123abc',
+    //   lastname: 'wiebe'
+    // } satisfies PatchValue;
 
     this.form.patchValue({
-      // id: '123abc', // '{ id: string; lastname: string; }' is not assignable to parameter of type 'Partial<{ ... }>'.
-      lastname: 'wiebe',
-    });
+      id: "123abc", // '{ id: string; lastname: string; }' is not assignable to parameter of type 'Partial<{ ... }>'.
+      lastname: "wiebe",
+    } as PatchValue);
 
     console.log(this.form);
 
@@ -85,8 +85,8 @@ export class AppComponent {
     // How to strip extra stuff from payload
     // so that strict types doesn't yell at you
     const payload = {
-      firstname: 'moo',
-      lastname: 'cow',
+      firstname: "moo",
+      lastname: "cow",
       id: 123123123,
       changedBy: Date.now(),
       lastChangedDate: new Date(),
